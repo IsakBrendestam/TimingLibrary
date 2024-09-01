@@ -1,8 +1,12 @@
 #include <iostream>
 
+#include "Library/Tween.h"
+
 int main()
 {
-    std::cout << "Test" << std::endl;
+    Tween tween(10);
+
+    std::cout << tween.GetValue() << std::endl;
 
     return 0;
 }

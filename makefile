@@ -9,6 +9,7 @@ BUILD_PATH = Build
 CXX := g++
 
 OBJECT_FILES = $(BUILD_PATH)/Main.o \
+			   $(BUILD_PATH)/Tween.o
 
 PROGRAM_FILE = program
 
