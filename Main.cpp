@@ -4,6 +4,8 @@
 
 #include "Application.h"
 
+#include "Library/Tween.h"
+
 int main()
 {
     SDL_Init(SDL_INIT_VIDEO);
@@ -28,6 +30,8 @@ int main()
     {
         time2 = std::clock();
         deltaTime = (double)(time2-time1)/CLOCKS_PER_SEC;
+
+        TweenManager::Update(deltaTime);
 
         while (SDL_PollEvent(&event))
         {
