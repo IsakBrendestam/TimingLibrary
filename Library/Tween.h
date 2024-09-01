@@ -4,12 +4,14 @@
 class Tween
 {
 public:
-    Tween(float startingValue);
+    Tween(float value);
+
+    void Upate(double deltaTime);
 
     float GetValue();
 
 private:
-    float m_startingValue;
+    float m_value;
 
 };
 

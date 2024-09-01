@@ -1,11 +1,16 @@
 #include "Tween.h"
 
-Tween::Tween(float startingValue):
-    m_startingValue(startingValue)
+Tween::Tween(float value):
+    m_value(value)
 {
+}
+
+void Tween::Upate(double deltaTime)
+{
+    m_value += deltaTime;
 }
 
 float Tween::GetValue()
 {
-    return m_startingValue;
+    return m_value;
 }
