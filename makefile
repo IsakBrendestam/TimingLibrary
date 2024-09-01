@@ -12,7 +12,7 @@ LIB = -L$(LIB_PATH)
 
 BUILD_PATH = Build
 
-CXX := g++
+CXX := clang++
 
 OBJECT_FILES = $(BUILD_PATH)/Main.o \
 			   $(BUILD_PATH)/Tween.o \
