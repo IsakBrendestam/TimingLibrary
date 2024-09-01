@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <functional>
+#include <queue>
 
 enum FuncTypes
 {
@@ -10,6 +11,20 @@ enum FuncTypes
     Func_Linear,
     Func_EaseInOutElastic,
     Func_EaseInCubic,
+};
+
+struct FrameInfo
+{
+    FrameInfo() = default;
+    FrameInfo(float d, float v, FuncTypes ft):
+        duration(d), value(v), funcType(ft)
+    {};
+
+    float duration;
+    float value;
+    FuncTypes funcType;
+    float currentDuration = 0;
+    float startValue = 0;
 };
 
 
@@ -26,7 +41,6 @@ public:
 public:
     static Tween* Create(float value);
 
-    void AddTimeFrameValue(float duration, float value);
     void AddTimeFrameFunc(float duration, float value, FuncTypes type);
 
     void AddUpdateFunction(std::function<void(float)> func);
@@ -42,15 +56,13 @@ private:
     Tween(float value);
     bool m_alive;
 
+    std::queue<FrameInfo> m_frameQueue;
+    FrameInfo m_currentFrame;
+
     std::function<void(float)> m_updateFunc; 
-    FuncTypes m_currentFuncType;
 
     float m_value;
-    float m_incValue;
-    float m_funcStartValue;
     float m_endDuration;
-    float m_funcDuration;
-    float m_currentDuration;
     float m_totalDuration;
 };
 

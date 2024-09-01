@@ -25,6 +25,7 @@ void Application::Event(SDL_Event event)
             Tween* t = Tween::Create(100);
             //t->AddTimeFrameValue(1, 500);
             t->AddTimeFrameFunc(1, 500, FuncTypes::Func_EaseInOutElastic);
+            t->AddTimeFrameFunc(1, -200, FuncTypes::Func_Linear);
             t->AddUpdateFunction([this] (float value) -> void {
                 this->m_rect.x = value;
             });

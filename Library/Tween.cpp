@@ -11,10 +11,10 @@
 
 
 Tween::Tween(float value):
-    m_value(value), m_incValue(0), m_endDuration(0), m_alive(true), m_currentFuncType(Func_None),
-    m_currentDuration(0), m_totalDuration(0), m_funcStartValue(value)
+    m_value(value), m_endDuration(0), m_alive(true),
+    m_totalDuration(0)
 {
-
+    m_currentFrame = FrameInfo(0, 0, Func_None);
 }
 
 Tween* Tween::Create(float value)
@@ -24,20 +24,10 @@ Tween* Tween::Create(float value)
     return t;
 }
 
-void Tween::AddTimeFrameValue(float duration, float value)
-{
-    m_endDuration += duration;
-    m_incValue = value;
-    m_funcDuration = duration;
-}
-
 void Tween::AddTimeFrameFunc(float duration, float value, FuncTypes type)
 {
+    m_frameQueue.push(FrameInfo(duration, value, type));
     m_endDuration += duration;
-    m_incValue = value;
-    m_funcDuration = duration;
-    m_currentDuration = 0;
-    m_currentFuncType = type;
 }
 
 void Tween::AddUpdateFunction(std::function<void(float)> func)
@@ -47,27 +37,24 @@ void Tween::AddUpdateFunction(std::function<void(float)> func)
 
 void Tween::UpdateValue(double deltaTime)
 {
-    m_currentDuration += deltaTime;
+    m_currentFrame.currentDuration += deltaTime;
 
-    const float animationFactor = m_currentDuration / m_funcDuration;
+    const float animationFactor = m_currentFrame.currentDuration / m_currentFrame.duration;
 
     std::cout << animationFactor << std::endl;
 
-    switch (m_currentFuncType)
+    switch (m_currentFrame.funcType)
     {
     case Func_None:
         break;
-
     case Func_Linear:
-        m_value += m_incValue * animationFactor;
+        m_value = m_currentFrame.startValue + m_currentFrame.value * animationFactor;
         break;
-
     case Func_EaseInOutElastic:
-        m_value = m_funcStartValue + m_incValue * EaseInOutElastic(animationFactor);
+        m_value = m_currentFrame.startValue + m_currentFrame.value * EaseInOutElastic(animationFactor);
         break;
-
     case Func_EaseInCubic:
-        m_value = m_funcStartValue + m_incValue * EaseInCubic(animationFactor);
+        m_value = m_currentFrame.startValue + m_currentFrame.value * EaseInCubic(animationFactor);
     default:
         break;
     }
@@ -75,6 +62,17 @@ void Tween::UpdateValue(double deltaTime)
 
 void Tween::Upate(double deltaTime)
 {
+    if (m_currentFrame.currentDuration >= m_currentFrame.duration)
+    {
+        if (m_frameQueue.size() > 0)
+        {
+            m_currentFrame = m_frameQueue.front();
+            m_currentFrame.startValue = m_value;
+            std::cout << m_currentFrame.value << std::endl;
+            m_frameQueue.pop();
+        }
+    }
+
     if (m_totalDuration > m_endDuration)
         m_alive = false;
 
@@ -102,7 +100,6 @@ std::vector<Tween*> TweenManager::tweens;
 
 void TweenManager::Update(double deltaTime)
 {
-
     for (int i = tweens.size()-1; i >= 0; i--)
     {
         Tween* tween = tweens[i];
