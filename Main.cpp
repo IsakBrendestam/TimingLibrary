@@ -2,8 +2,7 @@
 #include <ctime>
 #include <SDL2/SDL.h>
 
-#include "Library/Tween.h"
-
+#include "Application.h"
 
 int main()
 {
@@ -22,7 +21,8 @@ int main()
     SDL_Event event;
     double deltaTime = 0;
 
-    Tween tween(10);
+    Application* app = new Application();
+    app->Init();
 
     while (running)
     {
@@ -43,11 +43,17 @@ int main()
                         running = false;
                     break;
             }
+
+            app->Event(event);
         }       
 
+        app->Update(deltaTime);
+
         time1 = time2;
-        std::cout << tween.GetValue() << std::endl;
     }
+
+    app->Exit();
+    delete app;
 
     SDL_DestroyWindow(window);
     SDL_Quit();
