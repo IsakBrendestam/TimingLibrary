@@ -1,5 +1,7 @@
 #include "Tween.h"
 
+#include <iostream>
+
 
 /*************************************
                 Tween
@@ -7,7 +9,7 @@
 
 
 Tween::Tween(float value):
-    m_value(value), m_endValue(value)
+    m_value(value), m_incValue(0), m_endValue(value), m_alive(true)
 {
 
 }
@@ -19,25 +21,32 @@ Tween* Tween::Create(float value)
     return t;
 }
 
-void Tween::AddTimeFrame(float value)
+void Tween::AddTimeFrameValue(float duration, float value)
 {
     m_endValue += value;
+    m_incValue = value/duration;
 }
 
-void Tween::AddUpdateFunction(void (*func)(float))
+void Tween::AddUpdateFunction(std::function<void(float)> func)
 {
     m_updateFunc = func;
 }
 
 void Tween::Upate(double deltaTime)
 {
-    m_value += deltaTime;
-    m_updateFunc(m_value);
+    if (m_value > m_endValue)
+        m_alive = false;
+
+    if (m_alive)
+    {
+        m_value += m_incValue * deltaTime;
+        m_updateFunc(m_value);
+    }
 }
 
-float Tween::GetValue()
+bool Tween::GetAlive()
 {
-    return m_value;
+    return m_alive;
 }
 
 
@@ -50,8 +59,18 @@ std::vector<Tween*> TweenManager::tweens;
 
 void TweenManager::Update(double deltaTime)
 {
-    for (auto tween : tweens)
-        tween->Upate(deltaTime);
+
+    for (int i = tweens.size()-1; i >= 0; i--)
+    {
+        Tween* tween = tweens[i];
+        if (tween->GetAlive())
+            tween->Upate(deltaTime);
+        else
+        {
+            delete tween;
+            tweens.erase(tweens.begin() + i);
+        }
+    }
 }
 
 void TweenManager::Deconstruct()

@@ -2,6 +2,7 @@
 #define TWEEN_HEADER
 
 #include <vector>
+#include <functional>
 
 
 /*************************************
@@ -16,20 +17,22 @@ public:
 public:
     static Tween* Create(float value);
 
-    void AddTimeFrame(float value);
+    void AddTimeFrameValue(float duration, float value);
 
-    void AddUpdateFunction(void (*func)(float));
+    void AddUpdateFunction(std::function<void(float)> func);
 
     void Upate(double deltaTime);
 
-    float GetValue();
+    bool GetAlive();
 
 private:
     Tween(float value);
+    bool m_alive;
 
-    void (*m_updateFunc)(float);
+    std::function<void(float)> m_updateFunc; 
 
     float m_value;
+    float m_incValue;
     float m_endValue;
 };
 
