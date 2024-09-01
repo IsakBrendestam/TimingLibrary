@@ -1,5 +1,5 @@
 #include <iostream>
-#include <ctime>
+#include <chrono>
 #include <SDL2/SDL.h>
 
 #include "Application.h"
@@ -12,12 +12,17 @@ int main()
     SDL_Window* window = SDL_CreateWindow("Test", 
                                           SDL_WINDOWPOS_UNDEFINED,
                                           SDL_WINDOWPOS_UNDEFINED,
-                                          100,
-                                          100,
+                                          700,
+                                          700,
                                           SDL_WINDOW_ALLOW_HIGHDPI);
+                                        
+    // Enable V-Sync
+    SDL_GL_SetSwapInterval(1);
 
-    clock_t time1 = std::clock();
-    clock_t time2 = std::clock();
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+
+    auto time1 = std::chrono::high_resolution_clock::now();
+    auto time2 = std::chrono::high_resolution_clock::now();
 
     bool running = true;
     SDL_Event event;
@@ -28,8 +33,8 @@ int main()
 
     while (running)
     {
-        time2 = std::clock();
-        deltaTime = (double)(time2-time1)/CLOCKS_PER_SEC;
+        time2 = std::chrono::high_resolution_clock::now();
+        deltaTime = std::chrono::duration<double, std::milli>(time2 - time1).count() / 1000;
 
         TweenManager::Update(deltaTime);
 
@@ -53,6 +58,12 @@ int main()
 
         app->Update(deltaTime);
 
+
+        SDL_RenderClear(renderer);
+        app->Draw(renderer);
+        SDL_SetRenderDrawColor(renderer, 218, 215, 205, 0);
+        SDL_RenderPresent(renderer);
+
         time1 = time2;
     }
 
@@ -61,6 +72,7 @@ int main()
 
     TweenManager::Deconstruct();
 
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 

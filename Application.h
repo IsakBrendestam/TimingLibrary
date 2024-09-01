@@ -14,8 +14,10 @@ public:
 
     void Event(SDL_Event event);
     void Update(double deltaTime);
+    void Draw(SDL_Renderer* renderer);
 
 private:
+    SDL_Rect m_rect;
 };
 
 #endif //APPLICATION_HEADER
