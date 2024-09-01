@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cmath>
+#include "EasingFunctions.h"
 
 
 /*************************************
@@ -10,7 +11,7 @@
 
 
 Tween::Tween(float value):
-    m_value(value), m_incValue(0), m_endDuration(0), m_alive(true), m_currentFuncType(None),
+    m_value(value), m_incValue(0), m_endDuration(0), m_alive(true), m_currentFuncType(Func_None),
     m_currentDuration(0), m_totalDuration(0), m_funcStartValue(value)
 {
 
@@ -54,25 +55,19 @@ void Tween::UpdateValue(double deltaTime)
 
     switch (m_currentFuncType)
     {
-    case None:
+    case Func_None:
         break;
 
-    case Linear:
-        m_value += m_incValue / m_funcDuration * deltaTime;
+    case Func_Linear:
+        m_value += m_incValue * animationFactor;
         break;
 
-    case EaseInOutElastic:
-        {
-        const float c5 = 2 * M_PI / 4.5f; 
-        if (animationFactor < 0.5f)
-            m_value = m_funcStartValue + m_incValue * (-(pow(2, 20 * animationFactor - 10) * sin((20 * animationFactor - 11.125f) * c5)) / 2);
-        else if (animationFactor > 0.5f)
-            m_value = m_funcStartValue + m_incValue * ((pow(2, -20 * animationFactor + 10) * sin((20 * animationFactor - 11.125f) * c5)) / 2 + 1);
-        }
+    case Func_EaseInOutElastic:
+        m_value = m_funcStartValue + m_incValue * EaseInOutElastic(animationFactor);
         break;
 
-    case EaseInCubic:
-        m_value = m_funcStartValue + m_incValue * animationFactor * animationFactor * animationFactor;
+    case Func_EaseInCubic:
+        m_value = m_funcStartValue + m_incValue * EaseInCubic(animationFactor);
     default:
         break;
     }

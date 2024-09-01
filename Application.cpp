@@ -7,7 +7,6 @@
 void Application::Init()
 {
     m_rect = {100, 100, 100, 100};
-
 }
 
 void Application::Exit()
@@ -25,7 +24,7 @@ void Application::Event(SDL_Event event)
         {
             Tween* t = Tween::Create(100);
             //t->AddTimeFrameValue(1, 500);
-            t->AddTimeFrameFunc(1, 500, FuncTypes::EaseInOutElastic);
+            t->AddTimeFrameFunc(1, 500, FuncTypes::Func_EaseInOutElastic);
             t->AddUpdateFunction([this] (float value) -> void {
                 this->m_rect.x = value;
             });

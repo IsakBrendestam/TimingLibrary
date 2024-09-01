@@ -6,10 +6,10 @@
 
 enum FuncTypes
 {
-    None,
-    Linear,
-    EaseInOutElastic,
-    EaseInCubic,
+    Func_None,
+    Func_Linear,
+    Func_EaseInOutElastic,
+    Func_EaseInCubic,
 };
 
 
