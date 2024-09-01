@@ -18,6 +18,7 @@ public:
 
 private:
     SDL_Rect m_rect;
+    SDL_Color m_color;
 };
 
 #endif //APPLICATION_HEADER

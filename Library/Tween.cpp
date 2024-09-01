@@ -12,9 +12,10 @@
 
 Tween::Tween(float value):
     m_value(value), m_endDuration(0), m_alive(true),
-    m_totalDuration(0)
+    m_totalDuration(0), m_currentFrameIndex(-1)
 {
     m_currentFrame = FrameInfo(0, 0, Func_None);
+    m_updateFunc = nullptr;
 }
 
 Tween* Tween::Create(float value)
@@ -27,12 +28,19 @@ Tween* Tween::Create(float value)
 void Tween::AddTimeFrameFunc(float duration, float value, FuncTypes type)
 {
     m_frameQueue.push(FrameInfo(duration, value, type));
+    m_frameFunctions.push_back(nullptr);
     m_endDuration += duration;
 }
 
 void Tween::AddUpdateFunction(std::function<void(float)> func)
 {
     m_updateFunc = func;
+}
+
+void Tween::AddFrameFunction(unsigned int index, std::function<void(float)> func)
+{
+    if (index < m_frameFunctions.size())
+        m_frameFunctions[index] = func;
 }
 
 void Tween::UpdateValue(double deltaTime)
@@ -66,6 +74,7 @@ void Tween::Upate(double deltaTime)
     {
         if (m_frameQueue.size() > 0)
         {
+            m_currentFrameIndex++;
             m_currentFrame = m_frameQueue.front();
             m_currentFrame.startValue = m_value;
             std::cout << m_currentFrame.value << std::endl;
@@ -81,7 +90,16 @@ void Tween::Upate(double deltaTime)
     if (m_alive)
     {
         UpdateValue(deltaTime);
-        m_updateFunc(m_value);
+
+        if (m_currentFrameIndex != -1 && m_currentFrameIndex < m_frameFunctions.size())
+            if (m_frameFunctions[m_currentFrameIndex] != nullptr) 
+            {
+                std::function<void(float)> f = m_frameFunctions[m_currentFrameIndex];
+                f(m_value);
+            }
+
+        if (m_updateFunc != nullptr)
+            m_updateFunc(m_value);
     }
 }
 

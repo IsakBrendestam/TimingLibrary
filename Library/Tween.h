@@ -44,6 +44,7 @@ public:
     void AddTimeFrameFunc(float duration, float value, FuncTypes type);
 
     void AddUpdateFunction(std::function<void(float)> func);
+    void AddFrameFunction(unsigned int index, std::function<void(float)> func);
 
     void Upate(double deltaTime);
 
@@ -60,7 +61,9 @@ private:
     FrameInfo m_currentFrame;
 
     std::function<void(float)> m_updateFunc; 
+    std::vector<std::function<void(float)>> m_frameFunctions;
 
+    int m_currentFrameIndex;
     float m_value;
     float m_endDuration;
     float m_totalDuration;
