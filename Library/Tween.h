@@ -4,6 +4,15 @@
 #include <vector>
 #include <functional>
 
+enum FuncTypes
+{
+    None,
+    Linear,
+    EaseInOutElastic,
+    EaseInCubic,
+};
+
+
 
 /*************************************
                 Tween
@@ -18,6 +27,7 @@ public:
     static Tween* Create(float value);
 
     void AddTimeFrameValue(float duration, float value);
+    void AddTimeFrameFunc(float duration, float value, FuncTypes type);
 
     void AddUpdateFunction(std::function<void(float)> func);
 
@@ -26,14 +36,22 @@ public:
     bool GetAlive();
 
 private:
+    void UpdateValue(double deltaTime);
+
+private:
     Tween(float value);
     bool m_alive;
 
     std::function<void(float)> m_updateFunc; 
+    FuncTypes m_currentFuncType;
 
     float m_value;
     float m_incValue;
-    float m_endValue;
+    float m_funcStartValue;
+    float m_endDuration;
+    float m_funcDuration;
+    float m_currentDuration;
+    float m_totalDuration;
 };
 
 

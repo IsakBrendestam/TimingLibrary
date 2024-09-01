@@ -17,9 +17,7 @@ int main()
                                           SDL_WINDOW_ALLOW_HIGHDPI);
                                         
     // Enable V-Sync
-    SDL_GL_SetSwapInterval(1);
-
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     auto time1 = std::chrono::high_resolution_clock::now();
     auto time2 = std::chrono::high_resolution_clock::now();

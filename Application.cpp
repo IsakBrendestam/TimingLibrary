@@ -24,7 +24,8 @@ void Application::Event(SDL_Event event)
         if (event.key.keysym.sym == SDLK_SPACE)
         {
             Tween* t = Tween::Create(100);
-            t->AddTimeFrameValue(1, 500);
+            //t->AddTimeFrameValue(1, 500);
+            t->AddTimeFrameFunc(1, 500, FuncTypes::EaseInOutElastic);
             t->AddUpdateFunction([this] (float value) -> void {
                 this->m_rect.x = value;
             });
