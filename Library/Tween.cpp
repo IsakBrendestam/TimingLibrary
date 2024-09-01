@@ -49,8 +49,6 @@ void Tween::UpdateValue(double deltaTime)
 
     const float animationFactor = m_currentFrame.currentDuration / m_currentFrame.duration;
 
-    std::cout << animationFactor << std::endl;
-
     switch (m_currentFrame.funcType)
     {
     case Func_None:
@@ -77,7 +75,6 @@ void Tween::Upate(double deltaTime)
             m_currentFrameIndex++;
             m_currentFrame = m_frameQueue.front();
             m_currentFrame.startValue = m_value;
-            std::cout << m_currentFrame.value << std::endl;
             m_frameQueue.pop();
         }
     }

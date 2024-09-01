@@ -21,25 +21,32 @@ void Application::Event(SDL_Event event)
     {
     case SDL_KEYDOWN:
         // Quitting if Esc is pressed
-        if (event.key.keysym.sym == SDLK_SPACE)
+        if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_UP)
         {
-            int startY = m_rect.y;
-            Tween* t = Tween::Create(100);
-            t->AddTimeFrameFunc(1, 500, FuncTypes::Func_EaseInOutElastic);
-            t->AddTimeFrameFunc(1, 200, FuncTypes::Func_Linear);
-            t->AddFrameFunction(0, [this] (float value) -> void {
-                this->m_rect.x = value;
+            Tween* t = Tween::Create(m_rect.y);
 
-            });
-            t->AddFrameFunction(1, [this, startY] (float value) -> void {
-                this->m_rect.y = startY - 600 + value;
-            });
+            if (event.key.keysym.sym == SDLK_DOWN)
+                t->AddTimeFrameFunc(1, 100, FuncTypes::Func_EaseInOutElastic);
+            if (event.key.keysym.sym == SDLK_UP)
+                t->AddTimeFrameFunc(1, -100, FuncTypes::Func_EaseInOutElastic);
 
-            /*
+            t->AddUpdateFunction([this] (float value) -> void {
+                this->m_rect.y = value;
+            });
+        }
+
+        if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_LEFT)
+        {
+            Tween* t = Tween::Create(m_rect.x);
+
+            if (event.key.keysym.sym == SDLK_RIGHT)
+                t->AddTimeFrameFunc(1, 100, FuncTypes::Func_EaseInOutElastic);
+            else if (event.key.keysym.sym == SDLK_LEFT)
+                t->AddTimeFrameFunc(1, -100, FuncTypes::Func_EaseInOutElastic);
+
             t->AddUpdateFunction([this] (float value) -> void {
                 this->m_rect.x = value;
             });
-            */
         }
         break;
     
