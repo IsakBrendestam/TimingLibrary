@@ -19,6 +19,7 @@ public:
 private:
     SDL_Rect m_rect;
     SDL_Color m_color;
+    bool m_vertMoveEnable, m_horiMoveEnable;
 };
 
 #endif //APPLICATION_HEADER

@@ -45,6 +45,7 @@ public:
 
     void AddUpdateFunction(std::function<void(float)> func);
     void AddFrameFunction(unsigned int index, std::function<void(float)> func);
+    void AddPercentageFunction(float fraction, std::function<void(float)> func);
 
     void Upate(double deltaTime);
 
@@ -62,11 +63,14 @@ private:
 
     std::function<void(float)> m_updateFunc; 
     std::vector<std::function<void(float)>> m_frameFunctions;
+    std::function<void(float)> m_percentageFunc; 
 
     int m_currentFrameIndex;
     float m_value;
     float m_endDuration;
     float m_totalDuration;
+    float m_percentageFraction;
+
 };
 
 

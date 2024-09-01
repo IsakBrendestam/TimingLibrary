@@ -18,4 +18,6 @@ float EaseInOutElastic(float fraction)
         return (-(pow(2, 20 * fraction - 10) * sin((20 * fraction - 11.125f) * c5)) / 2);
     else if (fraction > 0.5f)
         return ((pow(2, -20 * fraction + 10) * sin((20 * fraction - 11.125f) * c5)) / 2 + 1);
+    
+    return 0;
 }

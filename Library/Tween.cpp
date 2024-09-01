@@ -12,10 +12,12 @@
 
 Tween::Tween(float value):
     m_value(value), m_endDuration(0), m_alive(true),
-    m_totalDuration(0), m_currentFrameIndex(-1)
+    m_totalDuration(0), m_currentFrameIndex(-1), 
+    m_percentageFraction(-1)
 {
     m_currentFrame = FrameInfo(0, 0, Func_None);
     m_updateFunc = nullptr;
+    m_percentageFunc = nullptr;
 }
 
 Tween* Tween::Create(float value)
@@ -41,6 +43,12 @@ void Tween::AddFrameFunction(unsigned int index, std::function<void(float)> func
 {
     if (index < m_frameFunctions.size())
         m_frameFunctions[index] = func;
+}
+
+void Tween::AddPercentageFunction(float fraction, std::function<void(float)> func)
+{
+    m_percentageFraction = fraction;
+    m_percentageFunc = func;
 }
 
 void Tween::UpdateValue(double deltaTime)
@@ -94,9 +102,14 @@ void Tween::Upate(double deltaTime)
                 std::function<void(float)> f = m_frameFunctions[m_currentFrameIndex];
                 f(m_value);
             }
-
+    
         if (m_updateFunc != nullptr)
             m_updateFunc(m_value);
+
+        if (m_percentageFraction != -1 && m_percentageFunc != nullptr)
+            if ((m_currentFrame.currentDuration / m_currentFrame.duration) > m_percentageFraction)
+                m_percentageFunc(m_value);
+
     }
 }
 
