@@ -3,10 +3,20 @@
 
 #include <vector>
 
+
+/*************************************
+                Tween
+**************************************/
+
+
 class Tween
 {
 public:
+    ~Tween() = default;
+public:
     static Tween* Create(float value);
+
+    void AddTimeFrame(float value);
 
     void AddUpdateFunction(void (*func)(float));
 
@@ -20,11 +30,19 @@ private:
     void (*m_updateFunc)(float);
 
     float m_value;
+    float m_endValue;
 };
+
+
+/*************************************
+             TweenManager
+**************************************/
 
 
 class TweenManager
 {
+    friend class Tween;
+
 public:
     static void Update(double deltaTime);
     static void Deconstruct();
@@ -32,7 +50,6 @@ public:
 private:
     static std::vector<Tween*> tweens;
 
-    friend class Tween;
 };
 
 #endif //TWEEN_HEADER

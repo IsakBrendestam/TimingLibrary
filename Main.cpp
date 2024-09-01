@@ -59,6 +59,8 @@ int main()
     app->Exit();
     delete app;
 
+    TweenManager::Deconstruct();
+
     SDL_DestroyWindow(window);
     SDL_Quit();
 
