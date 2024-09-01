@@ -1,8 +1,13 @@
 FLAGS = -pedantic
-LIBS = 
 
-INCLUDE_PATH = 
-LIB_PATH = 
+SDL_DIR=dep/SDL2/MAC
+DEP=-lSDL2-2.0.0
+
+INCLUDE_PATH = $(SDL_DIR)/linclude
+LIB_PATH = $(SDL_DIR)/lib
+
+INC = -I$(INCLUDE_PATH)
+LIB = -L$(LIB_PATH)
 
 BUILD_PATH = Build
 
@@ -17,14 +22,14 @@ PROGRAM_FILE = program
 all: build
 
 $(BUILD_PATH)/%.o: Library/%.cpp
-	$(CXX) $(INCLUDE_PATH) -c $< -o $@
+	$(CXX) $(INC) -c $< -o $@
 
 $(BUILD_PATH)/Main.o: Main.cpp
-	$(CXX) $(INCLUDE_PATH) -c $< -o $@
+	$(CXX) $(INC) -c $< -o $@
 
 build: $(OBJECT_FILES)
 	@echo "** Building Game **"
-	$(CXX) $(INCLUDE_PATH) $(FLAGS) -o $(PROGRAM_FILE) $(OBJECT_FILES) $(LIB_PATH) $(LIBS)
+	$(CXX) $(INC) $(LIB) $(FLAGS) -o $(PROGRAM_FILE) $(OBJECT_FILES)  $(DEP)
 
 run: all
 	./$(PROGRAM_FILE)
