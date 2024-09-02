@@ -12,6 +12,13 @@ float EaseOutCubic(float fraction)
     return 1 - pow(1 - fraction, 3);
 }
 
+float EaseInOutCubic(float fraction)
+{
+    if (fraction < 0.5f)
+        return 4 * pow(fraction, 3);
+    return 1 - pow(-2 * fraction + 2, 3) / 2;
+}
+
 float EaseInOutElastic(float fraction)
 {
     const float c5 = 2 * M_PI / 4.5f; 

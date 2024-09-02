@@ -7,6 +7,8 @@ float EaseInCubic(float fraction);
 
 float EaseOutCubic(float fraction);
 
+float EaseInOutCubic(float fraction);
+
 float EaseInOutElastic(float fraction);
 
 

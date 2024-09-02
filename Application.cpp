@@ -22,44 +22,47 @@ void Application::Event(SDL_Event event)
     switch (event.type)
     {
     case SDL_KEYDOWN:
-        // Quitting if Esc is pressed
-        if ((event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_w) && m_vertMoveEnable)
         {
-            Tween* t = Tween::Create(m_rect.y);
+            const FuncTypes funcType = Func_EaseInOutCubic;
 
-            float moveValue = 100;
-            if (event.key.keysym.sym == SDLK_w)
-                moveValue = -100;
+            if ((event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_w) && m_vertMoveEnable)
+            {
+                Tween* t = Tween::Create(m_rect.y);
 
-            t->AddTimeFrameFunc(1, moveValue, FuncTypes::Func_EaseInCubic);
-            t->AddUpdateFunction([this] (float value) -> void {
-                this->m_rect.y = value;
-                this->m_vertMoveEnable = false;
-            });
+                float moveValue = 100;
+                if (event.key.keysym.sym == SDLK_w)
+                    moveValue = -100;
 
-            t->AddPercentageFunction(1, [this] (float value) -> void {
-                this->m_vertMoveEnable = true;
-            });
-        }
+                t->AddTimeFrameFunc(1, moveValue, funcType);
+                t->AddUpdateFunction([this] (float value) -> void {
+                    this->m_rect.y = value;
+                    this->m_vertMoveEnable = false;
+                });
 
-        if ((event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_a) && m_horiMoveEnable)
-        {
-            Tween* t = Tween::Create(m_rect.x);
+                t->AddPercentageFunction(1, [this] (float value) -> void {
+                    this->m_vertMoveEnable = true;
+                });
+            }
 
-            float moveValue = 100;
-            if (event.key.keysym.sym == SDLK_a)
-                moveValue = -100;
+            if ((event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_a) && m_horiMoveEnable)
+            {
+                Tween* t = Tween::Create(m_rect.x);
 
-            t->AddTimeFrameFunc(1, moveValue, FuncTypes::Func_EaseOutCubic);
-            t->AddUpdateFunction([this] (float value) -> void {
-                this->m_rect.x = value;
-                this->m_horiMoveEnable = false;
-            });
+                float moveValue = 100;
+                if (event.key.keysym.sym == SDLK_a)
+                    moveValue = -100;
 
-            t->AddPercentageFunction(1, [this] (float value) -> void {
-                this->m_horiMoveEnable = value > 0;
-            });
+                t->AddTimeFrameFunc(1, moveValue, funcType);
+                t->AddUpdateFunction([this] (float value) -> void {
+                    this->m_rect.x = value;
+                    this->m_horiMoveEnable = false;
+                });
 
+                t->AddPercentageFunction(1, [this] (float value) -> void {
+                    this->m_horiMoveEnable = true;
+                });
+
+            }
         }
         break;
     
