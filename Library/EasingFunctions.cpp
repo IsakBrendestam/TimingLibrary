@@ -30,6 +30,13 @@ float EaseOutQuad(float fraction)
     return 1 - (1 - fraction) * (1 - fraction);
 }
 
+float EaseInOutQuad(float fraction)
+{
+    if (fraction < 0.5f)
+        return 2 * fraction * fraction;
+    return 1 - pow(-2 * fraction + 2, 2) / 2;
+}
+
 float EaseInCubic(float fraction)
 {
     return pow(fraction, 3);

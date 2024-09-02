@@ -13,6 +13,8 @@ float EaseInQuad(float fraction);
 
 float EaseOutQuad(float fraction);
 
+float EaseInOutQuad(float fraction);
+
 float EaseInCubic(float fraction);
 
 float EaseOutCubic(float fraction);
