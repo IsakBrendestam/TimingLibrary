@@ -10,6 +10,7 @@ enum FuncTypes
     Func_None,
     Func_Linear,
     Func_EaseInSine,
+    Func_EaseOutSine,
     Func_EaseInCubic,
     Func_EaseOutCubic,
     Func_EaseInOutCubic,
