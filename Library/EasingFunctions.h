@@ -9,6 +9,8 @@ float EaseOutSine(float fraction);
 
 float EaseInOutSine(float fraction);
 
+float EaseInQuad(float fraction);
+
 float EaseInCubic(float fraction);
 
 float EaseOutCubic(float fraction);

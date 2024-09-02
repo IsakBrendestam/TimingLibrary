@@ -20,6 +20,11 @@ float EaseInOutSine(float fraction)
     return -(cos(fraction * M_PI) - 1) / 2;
 }
 
+float EaseInQuad(float fraction)
+{
+    return fraction * fraction;
+}
+
 float EaseInCubic(float fraction)
 {
     return pow(fraction, 3);
