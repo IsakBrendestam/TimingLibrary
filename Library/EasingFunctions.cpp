@@ -25,6 +25,11 @@ float EaseInQuad(float fraction)
     return fraction * fraction;
 }
 
+float EaseOutQuad(float fraction)
+{
+    return 1 - (1 - fraction) * (1 - fraction);
+}
+
 float EaseInCubic(float fraction)
 {
     return pow(fraction, 3);
