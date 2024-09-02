@@ -3,6 +3,8 @@
 
 //https://easings.net/
 
+float EaseInSine(float fraction);
+
 float EaseInCubic(float fraction);
 
 float EaseOutCubic(float fraction);

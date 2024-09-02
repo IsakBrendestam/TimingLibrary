@@ -5,6 +5,11 @@
 const float c4 = (2 * M_PI) / 3;
 const float c5 = 2 * M_PI / 4.5f; 
 
+float EaseInSine(float fraction)
+{
+    return 1 - cos((fraction * M_PI) / 2);
+}
+
 float EaseInCubic(float fraction)
 {
     return pow(fraction, 3);
