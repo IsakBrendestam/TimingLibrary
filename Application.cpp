@@ -23,7 +23,7 @@ void Application::Event(SDL_Event event)
     {
     case SDL_KEYDOWN:
         {
-            const FuncTypes funcType = Func_EaseInElastic;
+            const FuncTypes funcType = Func_EaseOutElastic;
 
             if ((event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_w) && m_vertMoveEnable)
             {
@@ -61,7 +61,6 @@ void Application::Event(SDL_Event event)
                 t->AddPercentageFunction(1, [this] (float value) -> void {
                     this->m_horiMoveEnable = true;
                 });
-
             }
         }
         break;

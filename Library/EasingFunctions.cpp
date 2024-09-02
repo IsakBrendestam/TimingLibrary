@@ -2,6 +2,9 @@
 
 #include <cmath>
 
+const float c4 = (2 * M_PI) / 3;
+const float c5 = 2 * M_PI / 4.5f; 
+
 float EaseInCubic(float fraction)
 {
     return pow(fraction, 3);
@@ -21,7 +24,6 @@ float EaseInOutCubic(float fraction)
 
 float EaseInElastic(float fraction)
 {
-    const float  c4 = (2 * M_PI) / 3;
     if (fraction == 0)
         return 0;
     else if (fraction == 1)
@@ -29,9 +31,18 @@ float EaseInElastic(float fraction)
     return -pow(2, 10 * fraction - 10) * sin((fraction * 10 - 10.75) * c4);
 }
 
+float EaseOutElastic(float fraction)
+{
+    if (fraction == 0)
+        return 0;
+    else if (fraction == 1)
+        return 1;
+
+    return -pow(2, 10 * fraction - 10) * sin((fraction * 10 - 10.75f) * c4);
+}
+
 float EaseInOutElastic(float fraction)
 {
-    const float c5 = 2 * M_PI / 4.5f; 
     if (fraction == 0)
         return 0;
     else if (fraction >= 1)

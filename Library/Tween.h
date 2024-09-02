@@ -13,6 +13,7 @@ enum FuncTypes
     Func_EaseOutCubic,
     Func_EaseInOutCubic,
     Func_EaseInElastic,
+    Func_EaseOutElastic,
     Func_EaseInOutElastic,
 };
 
