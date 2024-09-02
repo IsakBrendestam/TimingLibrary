@@ -27,11 +27,11 @@ void Application::Event(SDL_Event event)
         {
             Tween* t = Tween::Create(m_rect.y);
 
-            if (event.key.keysym.sym == SDLK_s)
-                t->AddTimeFrameFunc(1, 100, FuncTypes::Func_EaseInOutElastic);
+            float moveValue = 100;
             if (event.key.keysym.sym == SDLK_w)
-                t->AddTimeFrameFunc(1, -100, FuncTypes::Func_EaseInOutElastic);
+                moveValue = -100;
 
+            t->AddTimeFrameFunc(1, moveValue, FuncTypes::Func_EaseInCubic);
             t->AddUpdateFunction([this] (float value) -> void {
                 this->m_rect.y = value;
                 this->m_vertMoveEnable = false;
@@ -50,7 +50,7 @@ void Application::Event(SDL_Event event)
             if (event.key.keysym.sym == SDLK_a)
                 moveValue = -100;
 
-            t->AddTimeFrameFunc(1, moveValue, FuncTypes::Func_EaseInOutElastic);
+            t->AddTimeFrameFunc(1, moveValue, FuncTypes::Func_EaseOutCubic);
             t->AddUpdateFunction([this] (float value) -> void {
                 this->m_rect.x = value;
                 this->m_horiMoveEnable = false;

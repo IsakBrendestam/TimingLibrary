@@ -69,6 +69,9 @@ void Tween::UpdateValue(double deltaTime)
         break;
     case Func_EaseInCubic:
         m_value = m_currentFrame.startValue + m_currentFrame.value * EaseInCubic(animationFactor);
+        break;
+    case Func_EaseOutCubic:
+        m_value = m_currentFrame.startValue + m_currentFrame.value * EaseOutCubic(animationFactor);
     default:
         break;
     }
