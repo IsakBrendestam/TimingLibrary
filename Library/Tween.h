@@ -9,10 +9,11 @@ enum FuncTypes
 {
     Func_None,
     Func_Linear,
-    Func_EaseInOutElastic,
     Func_EaseInCubic,
     Func_EaseOutCubic,
     Func_EaseInOutCubic,
+    Func_EaseInElastic,
+    Func_EaseInOutElastic,
 };
 
 struct FrameInfo
