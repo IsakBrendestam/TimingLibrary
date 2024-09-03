@@ -97,6 +97,9 @@ void Tween::UpdateValue(double deltaTime)
     case Func_EaseOutQuart:
         m_value = m_currentFrame.startValue + m_currentFrame.value * EaseOutQuart(animationFactor);
         break;
+    case Func_EaseInOutQuart:
+        m_value = m_currentFrame.startValue + m_currentFrame.value * EaseInOutQuart(animationFactor);
+        break;
     case Func_EaseInElastic:
         m_value = m_currentFrame.startValue + m_currentFrame.value * EaseInOutElastic(animationFactor);
         break;

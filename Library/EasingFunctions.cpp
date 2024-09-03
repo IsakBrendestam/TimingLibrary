@@ -64,6 +64,13 @@ float EaseOutQuart(float fraction)
     return 1 - pow(1 - fraction, 4);
 }
 
+float EaseInOutQuart(float fraction)
+{
+    if (fraction < 0.5f)
+        return 8 * fraction * fraction * fraction * fraction;
+    return 1 - pow(-2 * fraction + 2, 4) / 2;
+}
+
 float EaseInElastic(float fraction)
 {
     if (fraction == 0)
