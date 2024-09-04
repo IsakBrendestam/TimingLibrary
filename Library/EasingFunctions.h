@@ -27,6 +27,8 @@ float EaseOutQuart(float fraction);
 
 float EaseInOutQuart(float fraction);
 
+float EaseInQuint(float fraction);
+
 float EaseInElastic(float fraction);
 
 float EaseOutElastic(float fraction);
