@@ -81,6 +81,13 @@ float EaseOutQuint(float fraction)
     return 1 - pow(1 - fraction, 5);
 }
 
+float EaseInOutQuint(float fraction)
+{
+    if (fraction < 0.5f)
+        return 16 * fraction * fraction * fraction * fraction * fraction;
+    return 1 - pow (-2 * fraction + 2, 5) / 2;
+}
+
 float EaseInElastic(float fraction)
 {
     if (fraction == 0)
