@@ -95,6 +95,13 @@ float EaseInExpo(float fraction)
     return pow(2, 10 * fraction - 10);
 }
 
+float EaseOutExpo(float fraction)
+{
+    if (fraction == 1)
+        return 1;
+    return 1 - pow(2, -10 * fraction);
+}
+
 float EaseInElastic(float fraction)
 {
     if (fraction == 0)
