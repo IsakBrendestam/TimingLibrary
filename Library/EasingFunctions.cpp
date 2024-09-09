@@ -114,6 +114,15 @@ float EaseInOutExpo(float fraction)
     return (2 - pow(2, -20 * fraction + 10)) / 2;
 }
 
+float EaseInCirc(float fraction)
+{
+    if (fraction >= 1)
+        return 1;
+    if (fraction <= 0)
+        return 0;
+    return 1 - sqrt(1 - pow(fraction, 2));
+}
+
 float EaseInElastic(float fraction)
 {
     if (fraction <= 0)
