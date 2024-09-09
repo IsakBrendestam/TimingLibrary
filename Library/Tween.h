@@ -24,6 +24,7 @@ enum FuncTypes
     Func_EaseInQuint,
     Func_EaseOutQuint,
     Func_EaseInOutQuint,
+    Func_EaseInExpo,
     Func_EaseInElastic,
     Func_EaseOutElastic,
     Func_EaseInOutElastic,
