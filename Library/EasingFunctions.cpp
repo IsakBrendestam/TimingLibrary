@@ -102,6 +102,17 @@ float EaseOutExpo(float fraction)
     return 1 - pow(2, -10 * fraction);
 }
 
+float EaseInOutExpo(float fraction)
+{
+    if (fraction == 0)
+        return 0;
+    if (fraction == 1)
+        return 1;
+    if (fraction < 0.5f)
+        return pow(2, 20 * fraction - 10) / 2;
+    return (2 - pow(2, -20 * fraction + 10)) / 2;
+}
+
 float EaseInElastic(float fraction)
 {
     if (fraction == 0)
@@ -117,7 +128,6 @@ float EaseOutElastic(float fraction)
         return 0;
     else if (fraction == 1)
         return 1;
-
     return -pow(2, 10 * fraction - 10) * sin((fraction * 10 - 10.75f) * c4);
 }
 
