@@ -123,6 +123,15 @@ float EaseInCirc(float fraction)
     return 1 - sqrt(1 - pow(fraction, 2));
 }
 
+float EaseOutCirc(float fraction)
+{
+    if (fraction >= 1)
+        return 1;
+    if (fraction <= 0)
+        return 0;
+    return sqrt(1 - pow(fraction - 1, 2));
+}
+
 float EaseInElastic(float fraction)
 {
     if (fraction <= 0)
