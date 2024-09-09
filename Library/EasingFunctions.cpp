@@ -1,6 +1,7 @@
 #include "EasingFunctions.h"
 
 #include <cmath>
+#include <iostream>
 
 const float c4 = (2 * M_PI) / 3;
 const float c5 = 2 * M_PI / 4.5f; 
@@ -90,23 +91,23 @@ float EaseInOutQuint(float fraction)
 
 float EaseInExpo(float fraction)
 {
-    if (fraction == 0)
+    if (fraction <= 0)
         return 0;
     return pow(2, 10 * fraction - 10);
 }
 
 float EaseOutExpo(float fraction)
 {
-    if (fraction == 1)
+    if (fraction >= 1)
         return 1;
     return 1 - pow(2, -10 * fraction);
 }
 
 float EaseInOutExpo(float fraction)
 {
-    if (fraction == 0)
+    if (fraction <= 0)
         return 0;
-    if (fraction == 1)
+    if (fraction >= 1)
         return 1;
     if (fraction < 0.5f)
         return pow(2, 20 * fraction - 10) / 2;
@@ -115,25 +116,25 @@ float EaseInOutExpo(float fraction)
 
 float EaseInElastic(float fraction)
 {
-    if (fraction == 0)
+    if (fraction <= 0)
         return 0;
-    else if (fraction == 1)
+    else if (fraction >= 1)
         return 1;
     return -pow(2, 10 * fraction - 10) * sin((fraction * 10 - 10.75) * c4);
 }
 
 float EaseOutElastic(float fraction)
 {
-    if (fraction == 0)
+    if (fraction <= 0)
         return 0;
-    else if (fraction == 1)
+    else if (fraction >= 1)
         return 1;
     return -pow(2, 10 * fraction - 10) * sin((fraction * 10 - 10.75f) * c4);
 }
 
 float EaseInOutElastic(float fraction)
 {
-    if (fraction == 0)
+    if (fraction <= 0)
         return 0;
     else if (fraction >= 1)
         return 1;
