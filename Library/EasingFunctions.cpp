@@ -132,6 +132,17 @@ float EaseOutCirc(float fraction)
     return sqrt(1 - pow(fraction - 1, 2));
 }
 
+float EaseInOutCirc(float fraction)
+{
+    if (fraction >= 1)
+        return 1;
+    if (fraction <= 0)
+        return 0;
+    if (fraction < 0.5f)
+        return (1 - sqrt(1 - pow(2 * fraction, 2))) / 2;
+    return (sqrt(1 - pow(-2 * fraction + 2, 2)) + 1) / 2;
+}
+
 float EaseInElastic(float fraction)
 {
     if (fraction <= 0)

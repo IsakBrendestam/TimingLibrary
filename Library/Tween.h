@@ -29,6 +29,7 @@ enum FuncTypes
     Func_EaseInOutExpo,
     Func_EaseInCirc,
     Func_EaseOutCirc,
+    Func_EaseInOutCirc,
     Func_EaseInElastic,
     Func_EaseOutElastic,
     Func_EaseInOutElastic,
