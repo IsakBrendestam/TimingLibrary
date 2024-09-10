@@ -3,6 +3,8 @@
 #include <cmath>
 #include <iostream>
 
+const float c1 = 1.70158f;
+const float c3 = c1 + 1;
 const float c4 = (2 * M_PI) / 3;
 const float c5 = 2 * M_PI / 4.5f; 
 
@@ -141,6 +143,11 @@ float EaseInOutCirc(float fraction)
     if (fraction < 0.5f)
         return (1 - sqrt(1 - pow(2 * fraction, 2))) / 2;
     return (sqrt(1 - pow(-2 * fraction + 2, 2)) + 1) / 2;
+}
+
+float EaseInBack(float fraction)
+{
+    return c3 * fraction * fraction * fraction - c1 * fraction * fraction;
 }
 
 float EaseInElastic(float fraction)
