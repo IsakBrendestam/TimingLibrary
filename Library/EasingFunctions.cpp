@@ -150,6 +150,11 @@ float EaseInBack(float fraction)
     return c3 * fraction * fraction * fraction - c1 * fraction * fraction;
 }
 
+float EaseOutBack(float fraction)
+{
+    return 1 + c3 * pow(fraction - 1, 3) + c1 * pow(fraction - 1, 2);
+}
+
 float EaseInElastic(float fraction)
 {
     if (fraction <= 0)

@@ -47,6 +47,8 @@ float EaseInOutCirc(float fraction);
 
 float EaseInBack(float fraction);
 
+float EaseOutBack(float fraction);
+
 float EaseInElastic(float fraction);
 
 float EaseOutElastic(float fraction);
