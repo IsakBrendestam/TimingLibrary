@@ -158,6 +158,10 @@ float EaseOutBack(float fraction)
 
 float EaseInOutBack(float fraction)
 {
+    if (fraction <= 0)
+        return 0;
+    if (fraction >= 1)
+        return 1;
     if (fraction < 0.5f)
         return (pow(2 * fraction, 2) * ((c2 + 1) * 2 * fraction - c2)) / 2;
     return (pow(2 * fraction - 2, 2) * ((c2 + 1) * (fraction * 2 - 2) + c2) +2) / 2;
