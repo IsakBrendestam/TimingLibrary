@@ -4,6 +4,7 @@
 #include <iostream>
 
 const float c1 = 1.70158f;
+const float c2 = c1 * 1.525f;
 const float c3 = c1 + 1;
 const float c4 = (2 * M_PI) / 3;
 const float c5 = 2 * M_PI / 4.5f; 
@@ -153,6 +154,13 @@ float EaseInBack(float fraction)
 float EaseOutBack(float fraction)
 {
     return 1 + c3 * pow(fraction - 1, 3) + c1 * pow(fraction - 1, 2);
+}
+
+float EaseInOutBack(float fraction)
+{
+    if (fraction < 0.5f)
+        return (pow(2 * fraction, 2) * ((c2 + 1) * 2 * fraction - c2)) / 2;
+    return (pow(2 * fraction - 2, 2) * ((c2 + 1) * (fraction * 2 - 2) + c2) +2) / 2;
 }
 
 float EaseInElastic(float fraction)
