@@ -57,6 +57,7 @@ float EaseOutElastic(float fraction);
 
 float EaseInOutElastic(float fraction);
 
+float EaseOutBounce(float fraction);
 
 
 #endif //EASINGFUNCTIONS_HEADER

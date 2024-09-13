@@ -195,3 +195,17 @@ float EaseInOutElastic(float fraction)
         return (-(pow(2, 20 * fraction - 10) * sin((20 * fraction - 11.125f) * c5)) / 2);
     return ((pow(2, -20 * fraction + 10) * sin((20 * fraction - 11.125f) * c5)) / 2 + 1);
 }
+
+float EaseOutBounce(float fraction)
+{
+    const float n1 = 7.5625f;
+    const float d1 = 2.75f;
+
+    if (fraction < 1 / d1) 
+        return n1 * fraction * fraction;
+    else if (fraction < 2 / d1) 
+        return n1 * (fraction -= 1.5 / d1) * fraction + 0.75;
+    else if (fraction < 2.5 / d1) 
+        return n1 * (fraction -= 2.25 / d1) * fraction + 0.9375;
+    return n1 * (fraction -= 2.625 / d1) * fraction + 0.984375;
+}

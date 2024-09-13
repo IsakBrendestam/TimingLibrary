@@ -23,7 +23,7 @@ void Application::Event(SDL_Event event)
     {
     case SDL_KEYDOWN:
         {
-            const FuncTypes funcType = Func_EaseInOutBack;
+            const FuncTypes funcType = Func_EaseOutBounce;
 
             if ((event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_w) && m_vertMoveEnable)
             {

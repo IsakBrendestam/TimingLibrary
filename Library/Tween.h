@@ -36,6 +36,7 @@ enum FuncTypes
     Func_EaseInElastic,
     Func_EaseOutElastic,
     Func_EaseInOutElastic,
+    Func_EaseOutBounce,
 };
 
 struct FrameInfo
