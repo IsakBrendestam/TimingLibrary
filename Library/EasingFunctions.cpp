@@ -9,6 +9,9 @@ const float c3 = c1 + 1;
 const float c4 = (2 * M_PI) / 3;
 const float c5 = 2 * M_PI / 4.5f; 
 
+const float n1 = 7.5625f;
+const float d1 = 2.75f;
+
 float EaseInSine(float fraction)
 {
     return 1 - cos((fraction * M_PI) / 2);
@@ -204,21 +207,19 @@ float EaseInBounce(float fraction)
 float EaseOutBounce(float fraction)
 {
     float tempFrac = fraction;
-    const float n1 = 7.5625f;
-    const float d1 = 2.75f;
 
     if (tempFrac < 1 / d1) 
         return n1 * tempFrac * tempFrac;
     else if (tempFrac < 2 / d1) 
     {
-        tempFrac -= 1.5 / d1;
-        return n1 * (tempFrac) * tempFrac + 0.75;
+        tempFrac -= 1.5f / d1;
+        return n1 * (tempFrac) * tempFrac + 0.75f;
     }
-    else if (tempFrac < 2.5 / d1) 
+    else if (tempFrac < 2.5f / d1) 
     {
-        tempFrac -= 2.25 / d1;
-        return n1 * (tempFrac) * tempFrac + 0.9375;
+        tempFrac -= 2.25f / d1;
+        return n1 * (tempFrac) * tempFrac + 0.9375f;
     }
     tempFrac -= 2.625f / d1;
-    return n1 * (tempFrac / d1) * tempFrac + 0.984375;
+    return n1 * (tempFrac / d1) * tempFrac + 0.984375f;
 }
