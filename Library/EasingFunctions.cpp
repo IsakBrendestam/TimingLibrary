@@ -196,6 +196,11 @@ float EaseInOutElastic(float fraction)
     return ((pow(2, -20 * fraction + 10) * sin((20 * fraction - 11.125f) * c5)) / 2 + 1);
 }
 
+float EaseInBounce(float fraction)
+{
+    return 1 - EaseOutBounce(1 - fraction);
+}
+
 float EaseOutBounce(float fraction)
 {
     float tempFrac = fraction;

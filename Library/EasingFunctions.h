@@ -57,6 +57,8 @@ float EaseOutElastic(float fraction);
 
 float EaseInOutElastic(float fraction);
 
+float EaseInBounce(float fraction);
+
 float EaseOutBounce(float fraction);
 
 
