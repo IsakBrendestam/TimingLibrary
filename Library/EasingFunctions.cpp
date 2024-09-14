@@ -198,14 +198,22 @@ float EaseInOutElastic(float fraction)
 
 float EaseOutBounce(float fraction)
 {
+    float tempFrac = fraction;
     const float n1 = 7.5625f;
     const float d1 = 2.75f;
 
-    if (fraction < 1 / d1) 
-        return n1 * fraction * fraction;
-    else if (fraction < 2 / d1) 
-        return n1 * (fraction -= 1.5 / d1) * fraction + 0.75;
-    else if (fraction < 2.5 / d1) 
-        return n1 * (fraction -= 2.25 / d1) * fraction + 0.9375;
-    return n1 * (fraction -= 2.625 / d1) * fraction + 0.984375;
+    if (tempFrac < 1 / d1) 
+        return n1 * tempFrac * tempFrac;
+    else if (tempFrac < 2 / d1) 
+    {
+        tempFrac -= 1.5 / d1;
+        return n1 * (tempFrac) * tempFrac + 0.75;
+    }
+    else if (tempFrac < 2.5 / d1) 
+    {
+        tempFrac -= 2.25 / d1;
+        return n1 * (tempFrac) * tempFrac + 0.9375;
+    }
+    tempFrac -= 2.625f / d1;
+    return n1 * (tempFrac / d1) * tempFrac + 0.984375;
 }
