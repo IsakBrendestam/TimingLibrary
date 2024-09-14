@@ -61,5 +61,7 @@ float EaseInBounce(float fraction);
 
 float EaseOutBounce(float fraction);
 
+float EaseInOutBounce(float fraction);
+
 
 #endif //EASINGFUNCTIONS_HEADER

@@ -223,3 +223,10 @@ float EaseOutBounce(float fraction)
     tempFrac -= 2.625f / d1;
     return n1 * (tempFrac / d1) * tempFrac + 0.984375f;
 }
+
+float EaseInOutBounce(float fraction)
+{
+    if (fraction < 0.5f)
+        return (1 - EaseOutBounce(1 - 2 * fraction)) / 2;
+    return (1 + EaseOutBounce(2 * fraction - 1)) / 2;
+}
