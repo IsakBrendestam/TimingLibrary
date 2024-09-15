@@ -4,6 +4,7 @@
 #include <vector>
 #include <functional>
 #include <queue>
+#include <SDL2/SDL_mutex.h>
 
 enum FuncTypes
 {
@@ -112,12 +113,12 @@ class TweenManager
     friend class Tween;
 
 public:
-    static void Update(double deltaTime);
+    static void Initialize();
+    static int Update(void* data);
     static void Deconstruct();
 
 private:
     static std::vector<Tween*> tweens;
-
 };
 
 #endif //TWEEN_HEADER

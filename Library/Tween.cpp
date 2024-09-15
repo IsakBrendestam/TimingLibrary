@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <cmath>
+#include <chrono>
+#include <thread>
+
 #include "EasingFunctions.h"
 
 
@@ -211,19 +214,37 @@ bool Tween::GetAlive()
 
 std::vector<Tween*> TweenManager::tweens;
 
-void TweenManager::Update(double deltaTime)
+void TweenManager::Initialize()
 {
-    for (int i = tweens.size()-1; i >= 0; i--)
+}
+
+int TweenManager::Update(void* data)
+{
+    std::chrono::high_resolution_clock::time_point time1 = std::chrono::high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point time2 = std::chrono::high_resolution_clock::now();
+    double deltaTime;
+
+    while (true)
     {
-        Tween* tween = tweens[i];
-        if (tween->GetAlive())
-            tween->Upate(deltaTime);
-        else
+        time2 = std::chrono::high_resolution_clock::now();
+        deltaTime = std::chrono::duration<double, std::milli>(time2 - time1).count() / 1000;
+
+
+        for (int i = tweens.size()-1; i >= 0; i--)
         {
-            delete tween;
-            tweens.erase(tweens.begin() + i);
+            Tween* tween = tweens[i];
+            if (tween->GetAlive())
+                tween->Upate(deltaTime);
+            else
+            {
+                delete tween;
+                tweens.erase(tweens.begin() + i);
+            }
         }
+
+        time1 = time2;
     }
+
 }
 
 void TweenManager::Deconstruct()

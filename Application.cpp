@@ -4,17 +4,20 @@
 
 #include "Library/Tween.h"
 
+#include <thread>
+
 void Application::Init()
 {
     m_rect = {100, 100, 100, 100};
     m_color = {122, 122, 122, 0};
     m_vertMoveEnable = true;
     m_horiMoveEnable = true;
+
 }
 
 void Application::Exit()
 {
-
+    TweenManager::Deconstruct();
 }
 
 void Application::Event(SDL_Event event)
@@ -72,6 +75,7 @@ void Application::Event(SDL_Event event)
 
 void Application::Update(double deltaTime)
 {
+    //TweenManager::Update(deltaTime);
 }
 
 void Application::Draw(SDL_Renderer* renderer)

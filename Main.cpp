@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_thread.h>
 
 #include "Application.h"
 
@@ -8,6 +9,7 @@
 
 int main()
 {
+
     SDL_Init(SDL_INIT_VIDEO);
     SDL_Window* window = SDL_CreateWindow("Test", 
                                           SDL_WINDOWPOS_UNDEFINED,
@@ -29,12 +31,12 @@ int main()
     Application* app = new Application();
     app->Init();
 
+    SDL_Thread* threadID = SDL_CreateThread( TweenManager::Update, "LazyThread", nullptr);
+
     while (running)
     {
         time2 = std::chrono::high_resolution_clock::now();
         deltaTime = std::chrono::duration<double, std::milli>(time2 - time1).count() / 1000;
-
-        TweenManager::Update(deltaTime);
 
         while (SDL_PollEvent(&event))
         {
@@ -67,8 +69,6 @@ int main()
 
     app->Exit();
     delete app;
-
-    TweenManager::Deconstruct();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
